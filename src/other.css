@@ -2,6 +2,9 @@
 	position: fixed;
 	width: 50%;
 	height: 50%;
+	overflow: hidden;
+	resize: both;;
+	border: 1px #cba6f7 solid;
 }
 .decorator {
 	width: 100%;
@@ -16,10 +19,21 @@
 .decoratorHandle{
 	width: 100%;
 }
+.decoratorButtons {
+	display: flex;
+	justify-content: end;
+}
+.decButton {
+	height: 100%;
+	display: flex;
+	align-items: center;
+}
+.decButton>img {
+	height: 50%;
+}
 .Items {
 	width: 100%;
-	height: calc(100% - 5cqh);
-	border: 1px #cba6f7 solid;
+	height: calc(100% - 5cqh)
 }
 .card {
 	display: flex;
