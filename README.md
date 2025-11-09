@@ -1,7 +1,7 @@
 WÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃW 
 
 **W**indow f**ĩ**le **W**atcher
-A react project that shows the user file structure through an api blob ran locally on the system at the port :33333
+A react project that shows the user file structure through an api blob ran locally on the system at :80/api/wawAPI/
 
 The API outputs the given directory's files in the following form
 

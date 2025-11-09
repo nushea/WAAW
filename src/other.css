@@ -13,7 +13,7 @@
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
-	text-align: center;
+	text-align: left;
 	background: #11111b;
 }
 .decoratorHandle{
@@ -23,12 +23,12 @@
 	display: flex;
 	justify-content: end;
 }
-.decButton {
+.decButtons {
 	height: 100%;
 	display: flex;
 	align-items: center;
 }
-.decButton>img {
+.decButtons>img {
 	height: 50%;
 }
 .Items {
@@ -101,6 +101,7 @@ button{
 }
 .sizeSlider {
   -webkit-appearance: none;
+  appearance: none;
   width: 100%;
   height: 10px;
   border-radius: 5px;
