@@ -5,6 +5,9 @@
 	overflow: hidden;
 	resize: both;;
 	border: 1px #cba6f7 solid;
+    background-color: #1e1e2e;
+	display: flex;
+	flex-direction: column;
 }
 .decorator {
 	width: 100%;
