@@ -8,10 +8,13 @@ const enum interStateValue {
   Normal = 1,
   Maximized,
 }
-function MinimizeButton() {
+function MinimizeButton(container) {
   return (
     <>
-      <button onClick={() => alert("ACHOO")} className="decButtons">
+      <button
+        onClick={() => (container.container.current.parentNode.style.display = "none")}
+        className="decButtons"
+      >
         <img src="/img/icons8-minimize-100.png" />
       </button>
     </>
@@ -81,7 +84,7 @@ function Decorator({ AppType, container, maximize, oldState, setInterState, inte
           <p> {name} </p>
         </div>
         <div className="decoratorButtons">
-          <MinimizeButton />
+          <MinimizeButton container={container} />
           <MaximizeButton maximize={maximize} />
           <ExitButton remApp={remApp} />
         </div>
@@ -159,16 +162,50 @@ function AppBase({ AppType, remApp, setFocus }) {
     </>
   );
 }
-function AppSide({AppType, id}) {
-  function minimize(){
-      const obj = document.getElementsByClassName("W" + id.toString().substring(2))[0] as HTMLElement;
-      obj.style.display = (obj.style.display != "none")? "none" : "unset";
-
+function AppSide({ AppType, id, setFocus }) {
+  const [isHidden, setIsHidden] = useState(false);
+  const [oldZIndex, setOldZIndex] = useState("0");
+  function minimize() {
+    const obj = document.getElementsByClassName("W" + id.toString().substring(2))[0] as HTMLElement;
+    const child = obj.firstElementChild as HTMLElement | null;
+    if(!child) return;
+    setIsHidden(false);
+    obj.style.display = "unset";
+    child.style.zIndex = setFocus();
+    setOldZIndex(child.style.zIndex);
   }
+  function onHover() {
+    const obj = document.getElementsByClassName("W" + id.toString().substring(2))[0] as HTMLElement;
+    const child = obj.firstElementChild as HTMLElement | null;
+    if (!child) return;
+    setIsHidden(obj.style.display == "none");
+    setOldZIndex(child.style.zIndex);
+    obj.style.display = "unset";
+    child.style.opacity = "90%";
+    child.style.zIndex = "9007199254740991";
+  }
+  function onLeave() {
+    const obj = document.getElementsByClassName("W" + id.toString().substring(2))[0] as HTMLElement;
+    const child = obj.firstElementChild as HTMLElement | null;
+    if(!child) return;
+    obj.style.display = isHidden ? "none" : "unset";
+    child.style.opacity = "100%";
+    child.style.zIndex = oldZIndex;
+  }
+
   return (
     <>
-      <button onClick={() => minimize()} className="sideButtons">
-        <img src={(AppType.name == "FE")?"/img/icons8-folder-96.png":"/img/icons8-information-100.png" } />
+      <button
+        onClick={() => minimize()}
+        onMouseEnter={() => onHover()}
+        onMouseLeave={() => onLeave()}
+        className="sideButtons"
+      >
+        <img
+          src={
+            AppType.name == "FE" ? "/img/icons8-folder-96.png" : "/img/icons8-information-100.png"
+          }
+        />
       </button>
     </>
   );
@@ -196,27 +233,22 @@ function App() {
   return (
     <>
       <div className="SideBar">
-
         {...PID.map((PID, i) => (
-          <div key={PID.id} className={"S"+PID.id.toString().substring(2)}>
-            <AppSide
-              AppType={PID.apptype}
-              id={PID.id}
-            />
+          <div key={PID.id} className={"S" + PID.id.toString().substring(2)}>
+            <AppSide AppType={PID.apptype} id={PID.id} setFocus={() => focusCounter.current++} />
           </div>
         ))}
 
-{/*        <button onClick={() => newApp(FE)} className="sideButtons">
+        <button onClick={() => newApp(FE)} className="sideButtons">
           <img src="/img/icons8-exit-96.png" />
         </button>
         <button onClick={() => newApp(INFO)} className="sideButtons">
           <img src="/img/icons8-forward-96.png" />
-        </button> */}
+        </button>
       </div>
       <div className="Windows">
         {...PID.map((PID, i) => (
-          <div key={PID.id} className={"W"+PID.id.toString().substring(2)}>
-            <p> ‍ </p>
+          <div key={PID.id} className={"W" + PID.id.toString().substring(2)}>
             <AppBase
               AppType={PID.apptype}
               remApp={() => remApp(i)}
