@@ -1,0 +1,21 @@
+#root {
+	display: flex;
+	flex-direction: row;
+	width: 100vw;
+	height: 100vh;
+    overflow: hidden;
+}
+.Windows {
+    width: 100%;
+    height: 100%;
+}
+.SideBar {
+    display: flex;
+    flex-direction: column;
+    width: 5cqw;
+    height: 100%;
+    background-color: #11111b;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    direction: rtl;
+}

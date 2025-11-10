@@ -1,8 +1,13 @@
 import "./css/format.css";
 import "./css/other.css";
+import "./css/root.css";
 import FE from "./FE.jsx";
 import INFO from "./info.tsx";
 import { FunctionComponent, useRef, useEffect, useState } from "react";
+const enum interStateValue {
+  Normal = 1,
+  Maximized,
+}
 function MinimizeButton() {
   return (
     <>
@@ -30,7 +35,7 @@ function ExitButton({ remApp }) {
     </>
   );
 }
-function Decorator({ AppType, container, maximize, oldState, setInterState, interState, remApp } ) {
+function Decorator({ AppType, container, maximize, oldState, setInterState, interState, remApp }) {
   const [relativeX, setRelativeX] = useState(0);
   const [relativeY, setRelativeY] = useState(0);
   const [isDown, setIsDown] = useState(false);
@@ -48,12 +53,12 @@ function Decorator({ AppType, container, maximize, oldState, setInterState, inte
   function handleMouseMove(e) {
     var parent = container.current;
     if (isDown) {
-      if (interState == 3) {
-        setInterState(1);
+      if (interState == interStateValue.Maximized) {
+        setInterState(interStateValue.Normal);
         parent.style.width = oldState.oldWidth;
         parent.style.height = oldState.oldHeight;
         const rect = container.current.getBoundingClientRect();
-        setRelativeX(rect.left + rect.width/2);
+        setRelativeX(rect.left + rect.width / 2);
         setRelativeY(5);
       }
       parent.style.left = e.clientX - relativeX + "px";
@@ -88,11 +93,6 @@ function Decorator({ AppType, container, maximize, oldState, setInterState, inte
 function AppBase({ AppType, remApp, setFocus }) {
   const container = useRef<HTMLDivElement>(null);
   const [zIndex, setZIndex] = useState(() => setFocus());
-  enum interStateValue {
-    Normal = 1,
-    Minimized = 2,
-    Maximized = 3,
-  }
   const [interState, setInterState] = useState(interStateValue.Normal);
   const [oldState, setOldState] = useState<{
     oldX: string;
@@ -115,10 +115,10 @@ function AppBase({ AppType, remApp, setFocus }) {
         oldWidth: container.current.style.width,
         oldHeight: container.current.style.height,
       });
-      container.current.style.left = "0";
-      container.current.style.top = "0";
-      container.current.style.width = "calc(100% - 2px)";
+      container.current.style.width = "calc(100% - 5cqw - 2px)";
       container.current.style.height = "calc(100% - 2px)";
+      container.current.style.left = "5cqw";
+      container.current.style.top = "0";
     } else {
       container.current.style.left = oldState.oldX;
       container.current.style.top = oldState.oldY;
@@ -159,7 +159,20 @@ function AppBase({ AppType, remApp, setFocus }) {
     </>
   );
 }
+function AppSide({AppType, id}) {
+  function minimize(){
+      const obj = document.getElementsByClassName("W" + id.toString().substring(2))[0] as HTMLElement;
+      obj.style.display = (obj.style.display != "none")? "none" : "unset";
 
+  }
+  return (
+    <>
+      <button onClick={() => minimize()} className="sideButtons">
+        <img src={(AppType.name == "FE")?"/img/icons8-folder-96.png":"/img/icons8-information-100.png" } />
+      </button>
+    </>
+  );
+}
 function App() {
   const [PID, setPID] = useState<
     {
@@ -168,9 +181,6 @@ function App() {
     }[]
   >([]);
   const focusCounter = useRef(0);
-  useEffect(() => {
-    setPID([]);
-  }, []);
   function newApp(appType) {
     setPID([
       ...PID,
@@ -185,17 +195,27 @@ function App() {
   }
   return (
     <>
-      <div>
-        <button onClick={() => newApp(FE)} className="decButtons">
+      <div className="SideBar">
+
+        {...PID.map((PID, i) => (
+          <div key={PID.id} className={"S"+PID.id.toString().substring(2)}>
+            <AppSide
+              AppType={PID.apptype}
+              id={PID.id}
+            />
+          </div>
+        ))}
+
+{/*        <button onClick={() => newApp(FE)} className="sideButtons">
           <img src="/img/icons8-exit-96.png" />
         </button>
-        <button onClick={() => newApp(INFO)} className="decButtons">
+        <button onClick={() => newApp(INFO)} className="sideButtons">
           <img src="/img/icons8-forward-96.png" />
-        </button>
+        </button> */}
       </div>
       <div className="Windows">
         {...PID.map((PID, i) => (
-          <div key={PID.id} className={PID.id.toString().substring(2)}>
+          <div key={PID.id} className={"W"+PID.id.toString().substring(2)}>
             <p> ‍ </p>
             <AppBase
               AppType={PID.apptype}
