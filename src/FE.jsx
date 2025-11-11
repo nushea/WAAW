@@ -184,7 +184,7 @@ function DefaultPreview(){
   )
 }
 
-export default function FE() {
+export default function FE({PID, modPID}) {
   const [items, setItems] = useState([]);
   const [path, setPath] = useState("");
   const [history, setHistory] = useState(["/"]);
@@ -194,6 +194,10 @@ export default function FE() {
   const [itemSize, setItemSize] = useState(100);
   const [preview, setPreview] = useState(<DefaultPreview />);
   const ItemsRef = useRef(null);
+  useEffect(() =>{
+    if (!PID) return;
+    modPID({ title: (path.length > 1)? "FE - " + path.substring(path.lastIndexOf("/")+1) : "FE" , icon: "/img/icons8-folder-96.png" })
+  }, [path]);
   useEffect(() => {
     if (changeHistory) {
       var newHist = history;

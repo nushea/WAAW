@@ -38,7 +38,7 @@ function ExitButton({ remApp }) {
     </>
   );
 }
-function Decorator({ AppType, container, maximize, oldState, setInterState, interState, remApp }) {
+function Decorator({ PID, container, maximize, oldState, setInterState, interState, remApp }) {
   const [relativeX, setRelativeX] = useState(0);
   const [relativeY, setRelativeY] = useState(0);
   const [isDown, setIsDown] = useState(false);
@@ -76,7 +76,7 @@ function Decorator({ AppType, container, maximize, oldState, setInterState, inte
       window.removeEventListener("mouseup", handleMouseUp);
     };
   }, [isDown, relativeX, relativeY]);
-  const name = AppType.name;
+  const name = PID.title;
   return (
     <>
       <div className="decorator">
@@ -93,8 +93,9 @@ function Decorator({ AppType, container, maximize, oldState, setInterState, inte
   );
 }
 
-function AppBase({ AppType, remApp, setFocus }) {
+function AppBase({ PID, modPID, remApp, setFocus }) {
   const container = useRef<HTMLDivElement>(null);
+  const AppType = PID.apptype;
   const [zIndex, setZIndex] = useState(() => setFocus());
   const [interState, setInterState] = useState(interStateValue.Normal);
   const [oldState, setOldState] = useState<{
@@ -150,21 +151,22 @@ function AppBase({ AppType, remApp, setFocus }) {
       >
         <Decorator
           container={container}
-          AppType={AppType}
+          PID={PID}
           remApp={remApp}
           maximize={maximize}
           oldState={oldState}
           setInterState={setInterState}
           interState={interState}
         />
-        <AppType />
+        <AppType PID={PID} modPID={modPID} />
       </div>
     </>
   );
 }
-function AppSide({ AppType, id, setFocus }) {
+function AppSide({ PID, setFocus }) {
   const [isHidden, setIsHidden] = useState(false);
   const [oldZIndex, setOldZIndex] = useState("0");
+  const id=PID.id;
   function minimize() {
     const obj = document.getElementsByClassName("W" + id.toString().substring(2))[0] as HTMLElement;
     const child = obj.firstElementChild as HTMLElement | null;
@@ -201,11 +203,7 @@ function AppSide({ AppType, id, setFocus }) {
         onMouseLeave={() => onLeave()}
         className="sideButtons"
       >
-        <img
-          src={
-            AppType.name == "FE" ? "/img/icons8-folder-96.png" : "/img/icons8-information-100.png"
-          }
-        />
+        <img src={PID.icon}/>
       </button>
     </>
   );
@@ -215,6 +213,8 @@ function App() {
     {
       apptype: FunctionComponent;
       id: number;
+      title: string;
+      icon: string;
     }[]
   >([]);
   const focusCounter = useRef(0);
@@ -224,19 +224,30 @@ function App() {
       {
         apptype: appType,
         id: Math.random(),
+        title: appType.name,
+        icon: "/img/icons8-exit-96.png",
       },
     ]);
   }
   function remApp(index: number) {
     setPID(PID.slice(0, index).concat(PID.slice(index + 1)));
   }
+  const modPID = (id: number, newData: Partial<{ title: string; icon: string }>) => {
+  setPID(prev =>
+    prev.map(item =>
+      item.id === id
+        ? { ...item, ...newData }
+        : item
+    )
+  );
+};
   return (
     <>
       <div className="SideBar">
         <div className="SideApps">
           {...PID.map((PID, i) => (
             <div key={PID.id} className={"S" + PID.id.toString().substring(2)}>
-              <AppSide AppType={PID.apptype} id={PID.id} setFocus={() => focusCounter.current++} />
+              <AppSide PID={PID} setFocus={() => focusCounter.current++} />
             </div>
           ))}
         </div>
@@ -253,9 +264,10 @@ function App() {
         {...PID.map((PID, i) => (
           <div key={PID.id} className={"W" + PID.id.toString().substring(2)}>
             <AppBase
-              AppType={PID.apptype}
               remApp={() => remApp(i)}
               setFocus={() => focusCounter.current++}
+              PID={PID}
+              modPID={(newData) => modPID(PID.id, newData)}
             />
           </div>
         ))}
