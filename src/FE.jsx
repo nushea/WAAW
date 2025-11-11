@@ -21,37 +21,40 @@ async function filList(pathname) {
     return "error fetching";
   }
 }
-function File({ item, setPath, itemSize }) {
+function File({ item, setPath, itemSize, setPreview }) {
   const path = item.substring(item.indexOf("/"));
   const name = item.substring(item.lastIndexOf("/") + 1);
+  const [isHovered, setIsHovered] = useState(false);
+  function NewPreview(){
+    return (
+      <>
+        <div style={{textAlign: "center",}}>
+          <p> {item.substring(1, item.indexOf(" "))} </p>
+          <p> {item.substring(item.indexOf(" ") + 1, item.indexOf("/"))} </p>
+          <p> {item.substring(item.indexOf("/"))} </p>
+        </div>
+      </>
+    );
+  }
   if (path.length > 0) {
-    if (item.substring(0, 1) == "#")
       return (
         <>
           <button
             onClick={() => setPath(path)}
-            style={{ width: `${(itemSize * 10) / 100}cqw` }}
+            onMouseOver={() => {setIsHovered(true); setPreview(<NewPreview />)}}
+            onMouseLeave={() => setIsHovered(false)}
+            style={{ 
+              width: ({ itemSize } * 10) / 100 + "cqw",
+              borderRadius: "20%",
+              backgroundColor: (isHovered)? "#101010B0" : "unset",
+            }}
             className="card"
           >
-            <img src="/img/icons8-folder-96.png" className="logo" />
+            <img src={(item.substring(0,1) != "#")? "/img/icons8-file-96.png" : "/img/icons8-folder-96.png"} className="logo" />
             <p> {name} </p>
           </button>
         </>
       );
-    else {
-      return (
-        <>
-          <button
-            onClick={() => setPath(path)}
-            style={{ width: ({ itemSize } * 10) / 100 + "cqw" }}
-            className="card"
-          >
-            <img src="/img/icons8-file-96.png" className="logo" />
-            <p> {name} </p>
-          </button>
-        </>
-      );
-    }
   }
   return;
 }
@@ -172,6 +175,15 @@ function BreadCrumbs({ path, setPath }) {
     </>
   );
 }
+
+function DefaultPreview(){
+  return (
+    <>
+      <p> Dummie </p>
+    </>
+  )
+}
+
 export default function FE() {
   const [items, setItems] = useState([]);
   const [path, setPath] = useState("");
@@ -180,6 +192,7 @@ export default function FE() {
   const [oldHistoryPoint, setOldHistoryPoint] = useState(0);
   const [changeHistory, setChangeHistory] = useState(0); //this maintains a working history that is append only
   const [itemSize, setItemSize] = useState(100);
+  const [preview, setPreview] = useState(<DefaultPreview />);
   const ItemsRef = useRef(null);
   useEffect(() => {
     if (changeHistory) {
@@ -245,7 +258,7 @@ export default function FE() {
             <div className="Files">
               {...items.map((line, i) => (
                 <div key={i}>
-                  <File item={line} itemSize={itemSize} setPath={setPath} />
+                  <File item={line} itemSize={itemSize} setPath={setPath} setPreview={setPreview}/>
                 </div>
               ))}
             </div>
@@ -253,7 +266,7 @@ export default function FE() {
         </div>
         <div className="Right">
           <div className="Preview">
-            <p> Dummy preview </p>
+            {preview}
           </div>
 		  <p> 
 			V 0.0.0

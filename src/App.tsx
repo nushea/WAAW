@@ -168,7 +168,7 @@ function AppSide({ AppType, id, setFocus }) {
   function minimize() {
     const obj = document.getElementsByClassName("W" + id.toString().substring(2))[0] as HTMLElement;
     const child = obj.firstElementChild as HTMLElement | null;
-    if(!child) return;
+    if (!child) return;
     setIsHidden(false);
     obj.style.display = "unset";
     child.style.zIndex = setFocus();
@@ -187,7 +187,7 @@ function AppSide({ AppType, id, setFocus }) {
   function onLeave() {
     const obj = document.getElementsByClassName("W" + id.toString().substring(2))[0] as HTMLElement;
     const child = obj.firstElementChild as HTMLElement | null;
-    if(!child) return;
+    if (!child) return;
     obj.style.display = isHidden ? "none" : "unset";
     child.style.opacity = "100%";
     child.style.zIndex = oldZIndex;
@@ -233,18 +233,21 @@ function App() {
   return (
     <>
       <div className="SideBar">
-        {...PID.map((PID, i) => (
-          <div key={PID.id} className={"S" + PID.id.toString().substring(2)}>
-            <AppSide AppType={PID.apptype} id={PID.id} setFocus={() => focusCounter.current++} />
-          </div>
-        ))}
-
-        <button onClick={() => newApp(FE)} className="sideButtons">
-          <img src="/img/icons8-exit-96.png" />
-        </button>
-        <button onClick={() => newApp(INFO)} className="sideButtons">
-          <img src="/img/icons8-forward-96.png" />
-        </button>
+        <div className="SideApps">
+          {...PID.map((PID, i) => (
+            <div key={PID.id} className={"S" + PID.id.toString().substring(2)}>
+              <AppSide AppType={PID.apptype} id={PID.id} setFocus={() => focusCounter.current++} />
+            </div>
+          ))}
+        </div>
+        <div className="Contexts">
+          <button onClick={() => newApp(FE)} className="sideButtons">
+            <img src="/img/icons8-exit-96.png" />
+          </button>
+          <button onClick={() => newApp(INFO)} className="sideButtons">
+            <img src="/img/icons8-forward-96.png" />
+          </button>
+        </div>
       </div>
       <div className="Windows">
         {...PID.map((PID, i) => (
