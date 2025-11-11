@@ -103,3 +103,6 @@ a:visited {
 	display: flex;
 	flex-direction: row;
 }
+.decoratorHandle>p{
+  user-select: none;
+}
