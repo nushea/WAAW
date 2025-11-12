@@ -2,7 +2,11 @@ import "./css/format.css";
 import "./css/other.css";
 import "./css/root.css";
 import SideBar from "./core/sidebar.tsx"
+import Desktop from "./core/desktop.tsx"
 import Windows from "./core/windows.tsx"
+
+import FE from "./apps/FE.jsx"
+import INFO from "./apps/info.tsx"
 import { FunctionComponent, useRef, useEffect, useState } from "react";
 function App() {
   const [PID, setPID] = useState<
@@ -11,10 +15,17 @@ function App() {
       id: number;
       title: string;
       icon: string;
+      args: string;
     }[]
   >([]);
   const focusCounter = useRef(0);
-  function newApp(appType) {
+  function newApp(appType, args: string) {
+    if(typeof appType == "string"){
+      switch(appType){
+        case "FE": appType = FE; break;
+        case "INFO": appType = INFO; break;
+      }
+    }
     setPID([
       ...PID,
       {
@@ -22,6 +33,7 @@ function App() {
         id: Math.random(),
         title: appType.name,
         icon: "/img/icons8-exit-96.png",
+        args: args,
       },
     ]);
   }
@@ -39,7 +51,10 @@ function App() {
 };
   return (
     <>
-      <SideBar PID={PID} newApp={newApp} setFocus={() => focusCounter.current++} />
+      <div className="Background">
+        <SideBar PID={PID} newApp={newApp} setFocus={() => focusCounter.current++} />
+        <Desktop PID={PID} newApp={newApp}/>
+      </div>
       <Windows PID={PID} newApp={newApp} setFocus={() => focusCounter.current++} modPID={modPID} remApp={remApp} />
 
     </>

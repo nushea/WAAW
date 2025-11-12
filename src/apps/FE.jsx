@@ -37,7 +37,6 @@ function File({ item, setPath, itemSize, setPreview }) {
     );
   }
   if (path.length > 0) {
-              {/*width: ({ itemSize } * 10) / 100 + "cqw",*/}
       return (
         <>
           <button
@@ -188,7 +187,7 @@ function DefaultPreview(){
 export default function FE({PID, modPID, parent}) {
   const [items, setItems] = useState([]);
   const [path, setPath] = useState("");
-  const [history, setHistory] = useState(["/"]);
+  const [history, setHistory] = useState([(PID.args.length>0)? PID.args : "/"]);
   const [historyPoint, setHistoryPoint] = useState(0);
   const [oldHistoryPoint, setOldHistoryPoint] = useState(0);
   const [changeHistory, setChangeHistory] = useState(0); //this maintains a working history that is append only
@@ -202,11 +201,9 @@ export default function FE({PID, modPID, parent}) {
       parent.current.style.height = "50%";
     }
   }, []);
-  useEffect(() =>{
+  useEffect(() => {
     if (!PID) return;
     modPID({ title: (path.length > 1)? "FE - " + path.substring(path.lastIndexOf("/")+1) : "FE" , icon: "/img/icons8-folder-96.png" })
-  }, [path]);
-  useEffect(() => {
     if (changeHistory) {
       var newHist = history;
       newHist.push(path);
@@ -219,6 +216,7 @@ export default function FE({PID, modPID, parent}) {
     filList(path).then((data) => {
       setItems(data);
     });
+    console.log(path);
   }, [path]);
   useEffect(() => {
     //this works by setting history.length as a de facto "last position" even though the actual place in the history array where path is is in history.length - 1, oldHistoryPoint only matters insofar as to mention whether the place it starts from is history.length (as to skip the history.length -1 ) or to set up the state back to enable the aforementioned skip (since history.length-1 and history.length are treated the same)
@@ -280,8 +278,8 @@ export default function FE({PID, modPID, parent}) {
           <div className="Preview">
             {preview}
           </div>
-		  <p> 
-			V 0.0.0
+		  <p style={{textAlign: "right"}}> 
+  			V 0.0.0
 			</p>
         </div>
       </div>

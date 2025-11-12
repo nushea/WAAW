@@ -8,8 +8,17 @@
 	background-size: cover;
 }
 .Windows {
-	width: 100%;
-	height: 100%;
+	width: 0;
+	height: 0;
+  left: 5cqw;
+  top: 0;
+  position:absolute;
+}
+.Background {
+  width: 100%;
+  height: 100%;
+  display: flex;
+
 }
 .SideBar {
   display: flex;
@@ -30,4 +39,16 @@
 	padding: 2px;
   z-index: 9007199254740991;
   direction: ltr;
+}
+.Desktop {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-content: flex-start;
+  direction: rtl;
+  gap: 0;
+  height: 100vh;
 }

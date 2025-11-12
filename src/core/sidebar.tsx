@@ -3,9 +3,6 @@ import "../css/format.css";
 import "../css/other.css";
 import "../css/info.css";
 
-import FE from "../apps/FE.jsx";
-import INFO from "../apps/info.tsx";
-
 function SidePreview({title, curPreview}){
   if(!curPreview) return;
   return (
@@ -94,14 +91,6 @@ export default function SideBar({PID, newApp, setFocus}) {
               <AppSide PID={PID} setFocus={setFocus} setPreviewTitle={setPreviewTitle} setCurPreview={setCurPreview}/>
             </div>
           ))}
-        </div>
-        <div className="Contexts">
-          <button onClick={() => newApp(FE)} className="sideButtons">
-            <img src="/img/icons8-exit-96.png" />
-          </button>
-          <button onClick={() => newApp(INFO)} className="sideButtons">
-            <img src="/img/icons8-forward-96.png" />
-          </button>
         </div>
       </div>
     </>);
