@@ -37,6 +37,7 @@ function File({ item, setPath, itemSize, setPreview }) {
     );
   }
   if (path.length > 0) {
+              {/*width: ({ itemSize } * 10) / 100 + "cqw",*/}
       return (
         <>
           <button
@@ -44,7 +45,7 @@ function File({ item, setPath, itemSize, setPreview }) {
             onMouseOver={() => {setIsHovered(true); setPreview(<NewPreview />)}}
             onMouseLeave={() => setIsHovered(false)}
             style={{ 
-              width: ({ itemSize } * 10) / 100 + "cqw",
+              width: itemSize+"cqw",
               borderRadius: "20%",
               backgroundColor: (isHovered)? "#101010B0" : "unset",
             }}
@@ -136,9 +137,9 @@ function SizeBar({ setItemSize }) {
       <div className="sizeBar">
         <input
           type="range"
-          min="50"
-          max="150"
-          defaultValue="100"
+          min="4"
+          max="32"
+          defaultValue="10"
           className="sizeSlider"
           onChange={(event) => {
             setItemSize(event.target.value);
@@ -191,7 +192,7 @@ export default function FE({PID, modPID, parent}) {
   const [historyPoint, setHistoryPoint] = useState(0);
   const [oldHistoryPoint, setOldHistoryPoint] = useState(0);
   const [changeHistory, setChangeHistory] = useState(0); //this maintains a working history that is append only
-  const [itemSize, setItemSize] = useState(100);
+  const [itemSize, setItemSize] = useState(10);
   const [preview, setPreview] = useState(<DefaultPreview />);
   const ItemsRef = useRef(null);
   
@@ -246,7 +247,7 @@ export default function FE({PID, modPID, parent}) {
     const cards = ItemsRef.current.querySelectorAll(".card");
 
     cards.forEach((card) => {
-      card.style.width = (itemSize * 10) / 100 + "cqw";
+      card.style.width = itemSize + "cqw";
     });
   }, [itemSize]);
   return (
