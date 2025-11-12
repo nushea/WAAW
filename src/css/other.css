@@ -25,6 +25,7 @@
 .decoratorButtons {
 	display: flex;
 	justify-content: end;
+  width: 12cqh;
 }
 .decButtons {
 	height: 100%;

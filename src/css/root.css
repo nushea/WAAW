@@ -12,13 +12,22 @@
 	height: 100%;
 }
 .SideBar {
-    display: flex;
-    flex-direction: column;
-    width: 5cqw;
-    height: 100%;
-    background-color: #11111bC0;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    direction: rtl;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  width: 5cqw;
+  height: 100%;
+  background-color: #11111bC0;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  direction: rtl;
+  justify-content: space-between;
+}
+.SidePreview {
+	position: fixed;
+	background-color: #202020;
+	border: solid;
+	border-radius: 10%;
+	padding: 2px;
+  z-index: 9007199254740991;
+  direction: ltr;
 }

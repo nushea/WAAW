@@ -3,9 +3,6 @@ import "../css/format.css";
 import "../css/other.css";
 import "../css/info.css";
 
-import FE from "../apps/FE.jsx";
-import INFO from "../apps/info.tsx";
-
 const enum interStateValue {
   Normal = 1,
   Maximized,
@@ -146,9 +143,7 @@ function AppBase({ PID, modPID, remApp, setFocus }) {
         onMouseDown={() => setZIndex(setFocus())}
         ref={container}
         style={{
-          zIndex: zIndex.toString(),
-          width: AppType == FE ? "45%" : "20%",
-          height: AppType == FE ? "50%" : "45%",
+          zIndex: zIndex.toString()
         }}
       >
         <Decorator
@@ -160,7 +155,7 @@ function AppBase({ PID, modPID, remApp, setFocus }) {
           setInterState={setInterState}
           interState={interState}
         />
-        <AppType PID={PID} modPID={modPID} />
+        <AppType PID={PID} modPID={modPID} parent={container} />
       </div>
     </>
   );

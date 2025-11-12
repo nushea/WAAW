@@ -184,7 +184,7 @@ function DefaultPreview(){
   )
 }
 
-export default function FE({PID, modPID}) {
+export default function FE({PID, modPID, parent}) {
   const [items, setItems] = useState([]);
   const [path, setPath] = useState("");
   const [history, setHistory] = useState(["/"]);
@@ -194,6 +194,13 @@ export default function FE({PID, modPID}) {
   const [itemSize, setItemSize] = useState(100);
   const [preview, setPreview] = useState(<DefaultPreview />);
   const ItemsRef = useRef(null);
+  
+  useEffect(() => {
+    if(parent.current){
+      parent.current.style.width = "45%";
+      parent.current.style.height = "50%";
+    }
+  }, []);
   useEffect(() =>{
     if (!PID) return;
     modPID({ title: (path.length > 1)? "FE - " + path.substring(path.lastIndexOf("/")+1) : "FE" , icon: "/img/icons8-folder-96.png" })

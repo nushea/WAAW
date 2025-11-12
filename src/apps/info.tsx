@@ -3,9 +3,13 @@ import "../css/format.css";
 import "../css/other.css";
 import "../css/info.css";
 
-export default function INFO({PID, modPID}) {
+export default function INFO({PID, modPID, parent}) {
   useEffect(() => {
     modPID({title: "About me!", icon: "/img/icons8-information-100.png"});
+    if(parent.current){
+      parent.current.style.width = "20%";
+      parent.current.style.height = "45%";
+    }
   }, []);
   return (
     <>
