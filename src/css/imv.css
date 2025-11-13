@@ -1,0 +1,13 @@
+.IMVWindow {
+	justify-content: center;
+	display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+.IMVWImage {
+	object-fit: contain;
+  min-height: 5%;
+}
+.IMVWImage > img {
+  height: 100%;
+}

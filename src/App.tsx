@@ -7,6 +7,7 @@ import Windows from "./core/windows.tsx"
 
 import FE from "./apps/FE.jsx"
 import INFO from "./apps/info.tsx"
+import IMV from "./apps/imv.tsx"
 import { FunctionComponent, useRef, useEffect, useState } from "react";
 function App() {
   const [PID, setPID] = useState<
@@ -24,6 +25,7 @@ function App() {
       switch(appType){
         case "FE": appType = FE; break;
         case "INFO": appType = INFO; break;
+        case "IMV": appType = IMV; break;
       }
     }
     setPID([
