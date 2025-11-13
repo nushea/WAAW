@@ -3,7 +3,6 @@ import "../css/format.css";
 import "../css/other.css";
 import * as Cookies from "es-cookie";
 import { useLocation, BrowserRouter, Routes, Route } from "react-router";
-
 async function filList(pathname) {
   var curPath = pathname;
 
@@ -21,6 +20,7 @@ async function filList(pathname) {
     return "error fetching";
   }
 }
+
 function File({ item, setPath, itemSize, setPreview, newApp }) {
   const path = item.substring(item.indexOf("/"));
   const name = item.substring(item.lastIndexOf("/") + 1);
@@ -40,11 +40,12 @@ function File({ item, setPath, itemSize, setPreview, newApp }) {
       return (
         <>
           <button
-            onClick={() => setPath(path)}
+            onClick={() => (item[0] == '#')? setPath(path) : newApp("?", path)}
             onMouseDown={(event) => {
               if(event.button === 1){
                 event.preventDefault();
-                newApp("FE", path);
+                if(item[0] == '#') newApp("FE", path);
+                else newApp("?", path);
               }
             }}
             onMouseOver={() => {setIsHovered(true); setPreview(<NewPreview />)}}

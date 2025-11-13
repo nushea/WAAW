@@ -17,7 +17,6 @@ function handleMove(event, isPressed, pos, setPos){
       x: prevPos.x + event.movementX,
       y: prevPos.y + event.movementY
     }));
-    console.log(pos.x, pos.y);
   }
 }
 

@@ -9,6 +9,37 @@ import FE from "./apps/FE.jsx"
 import INFO from "./apps/info.tsx"
 import IMV from "./apps/imv.tsx"
 import { FunctionComponent, useRef, useEffect, useState } from "react";
+
+const IMAGE_EXTS = ['png', 'jpg', 'jpeg', 'gif', 'webp', 'avif', 'svg', 'bmp', 'ico'];
+const VIDEO_EXTS = ['mp4', 'webm', 'ogg', 'mov', 'avi', 'mkv', 'm4v'];
+const TEXT_EXTS  = ['txt', 'md', 'csv', 'json', 'xml', 'html', 'css', 'js', 'ts'];
+
+function getExtension(name) {
+  const cleanName = name.split('?')[0].split('#')[0];
+  return cleanName.split('.').pop().toLowerCase();
+}
+function isImage(name) {
+  return IMAGE_EXTS.includes(getExtension(name));
+}
+
+function isVideo(name) {
+  return VIDEO_EXTS.includes(getExtension(name));
+}
+
+function isText(name) {
+  return TEXT_EXTS.includes(getExtension(name));
+}
+
+  function getAppType(name){
+    if(isImage(name))
+      return "IMV";
+    if(isVideo(name))
+      return "VIV";
+    if(isText(name))
+      return "READ";
+    return "HEX";
+  }
+
 function App() {
   const [PID, setPID] = useState<
     {
@@ -22,6 +53,9 @@ function App() {
   const focusCounter = useRef(0);
   function newApp(appType, args: string) {
     if(typeof appType == "string"){
+      if(appType == '?'){
+        appType = getAppType(args);
+      }
       switch(appType){
         case "FE": appType = FE; break;
         case "INFO": appType = INFO; break;
