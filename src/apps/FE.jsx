@@ -21,7 +21,7 @@ async function filList(pathname) {
     return "error fetching";
   }
 }
-function File({ item, setPath, itemSize, setPreview }) {
+function File({ item, setPath, itemSize, setPreview, newApp }) {
   const path = item.substring(item.indexOf("/"));
   const name = item.substring(item.lastIndexOf("/") + 1);
   const [isHovered, setIsHovered] = useState(false);
@@ -41,6 +41,12 @@ function File({ item, setPath, itemSize, setPreview }) {
         <>
           <button
             onClick={() => setPath(path)}
+            onMouseDown={(event) => {
+              if(event.button === 1){
+                event.preventDefault();
+                newApp("FE", path);
+              }
+            }}
             onMouseOver={() => {setIsHovered(true); setPreview(<NewPreview />)}}
             onMouseLeave={() => setIsHovered(false)}
             style={{ 
@@ -183,18 +189,25 @@ function DefaultPreview(){
     </>
   )
 }
+function initPath(args){
+    if(args.length ==0)
+      return "/";
+    if(args == "--home")
+      return !Cookies.get("Username") ? "/home" : "/home/" + Cookies.get("Username");
+    return args;
+}
 
-export default function FE({PID, modPID, parent}) {
+export default function FE({PID, modPID, parent, newApp}) {
   const [items, setItems] = useState([]);
   const [path, setPath] = useState("");
-  const [history, setHistory] = useState([(PID.args.length>0)? PID.args : "/"]);
+  const [history, setHistory] = useState([initPath(PID.args)]);
   const [historyPoint, setHistoryPoint] = useState(0);
   const [oldHistoryPoint, setOldHistoryPoint] = useState(0);
   const [changeHistory, setChangeHistory] = useState(0); //this maintains a working history that is append only
   const [itemSize, setItemSize] = useState(10);
   const [preview, setPreview] = useState(<DefaultPreview />);
   const ItemsRef = useRef(null);
-  
+  const ver = "0.1.0";
   useEffect(() => {
     if(parent.current){
       parent.current.style.width = "45%";
@@ -216,7 +229,6 @@ export default function FE({PID, modPID, parent}) {
     filList(path).then((data) => {
       setItems(data);
     });
-    console.log(path);
   }, [path]);
   useEffect(() => {
     //this works by setting history.length as a de facto "last position" even though the actual place in the history array where path is is in history.length - 1, oldHistoryPoint only matters insofar as to mention whether the place it starts from is history.length (as to skip the history.length -1 ) or to set up the state back to enable the aforementioned skip (since history.length-1 and history.length are treated the same)
@@ -268,7 +280,7 @@ export default function FE({PID, modPID, parent}) {
             <div className="Files">
               {...items.map((line, i) => (
                 <div key={i}>
-                  <File item={line} itemSize={itemSize} setPath={setPath} setPreview={setPreview}/>
+                  <File item={line} itemSize={itemSize}  setPath={setPath} setPreview={setPreview} newApp={newApp}/>
                 </div>
               ))}
             </div>
@@ -278,8 +290,8 @@ export default function FE({PID, modPID, parent}) {
           <div className="Preview">
             {preview}
           </div>
-		  <p style={{textAlign: "right"}}> 
-  			V 0.0.0
+		  <p style={{textAlign: "right"}} onClick={() => newApp("INFO", "FE\\File Explorer\nThe integrated file explorer\\"+ ver +"\\ ")}> 
+  			V {ver}
 			</p>
         </div>
       </div>

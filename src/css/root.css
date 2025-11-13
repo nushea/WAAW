@@ -52,3 +52,10 @@
   gap: 0;
   height: 100vh;
 }
+.DesktopButton {
+  width: 5cqw;
+  height: 7cqw;
+}
+.DesktopButton > img {
+  width: 100%;
+}

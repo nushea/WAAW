@@ -92,7 +92,7 @@ function Decorator({ PID, container, maximize, oldState, setInterState, interSta
   );
 }
 
-function AppBase({ PID, modPID, remApp, setFocus }) {
+function AppBase({ PID, modPID, remApp, setFocus, newApp }) {
   const container = useRef<HTMLDivElement>(null);
   const AppType = PID.apptype;
   const [zIndex, setZIndex] = useState(() => setFocus());
@@ -155,7 +155,7 @@ function AppBase({ PID, modPID, remApp, setFocus }) {
           setInterState={setInterState}
           interState={interState}
         />
-        <AppType PID={PID} modPID={modPID} parent={container} />
+        <AppType PID={PID} modPID={modPID} parent={container} newApp={newApp} />
       </div>
     </>
   );
@@ -174,6 +174,7 @@ export default function Windows({PID, newApp, setFocus, modPID, remApp}) {
               setFocus={setFocus}
               PID={PID}
               modPID={(newData) => modPID(PID.id, newData)}
+              newApp={newApp}
             />
           </div>
         ))}

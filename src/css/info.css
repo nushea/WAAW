@@ -1,15 +1,16 @@
 .InfoWindow {
-    text-align: center;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-    overflow-y: scroll;
-    height: 100%;
-    flex: 1;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow-y: scroll;
+  height: 100%;
+  flex: 1;
+  white-space: pre-line;
 }
 .InfoData>a{
-    justify-content: center;
+  justify-content: center;
 }
 .credits>a{
-    justify-content: center;
+  justify-content: center;
 }

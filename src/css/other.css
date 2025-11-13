@@ -18,6 +18,7 @@
 	justify-content: space-between;
 	text-align: left;
 	background: #11111b;
+  overflow: hidden;
 }
 .decoratorHandle{
 	width: 100%;
