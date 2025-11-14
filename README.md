@@ -30,7 +30,7 @@ Roadmap:
     File Explorer → Implemented  
     Informational App → implemented  
     Image Viewer → Implemented  
-    Video Viewer → To be implemented  
+    Video Viewer → Implemented  
     Text Viewer → Implemented  
     Hex Viewer → To be implemented  
     Shell Emulator → TBD if it will be implemented  

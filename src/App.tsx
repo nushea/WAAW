@@ -9,6 +9,7 @@ import FE from "./apps/FE.jsx"
 import INFO from "./apps/info.tsx"
 import READ from "./apps/read.tsx"
 import IMV from "./apps/imv.tsx"
+import VIV from "./apps/viv.tsx"
 import { FunctionComponent, useRef, useEffect, useState } from "react";
 
 const IMAGE_EXTS = ['png', 'jpg', 'jpeg', 'gif', 'webp', 'avif', 'svg', 'bmp', 'ico'];
@@ -62,6 +63,7 @@ function App() {
         case "INFO": appType = INFO; break;
         case "READ": appType = READ; break;
         case "IMV": appType = IMV; break;
+        case "VIV": appType = VIV; break;
       }
     }
     setPID([

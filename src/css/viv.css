@@ -1,0 +1,6 @@
+.VIVWindow {
+	justify-content: center;
+	display: flex;
+  flex: 1;
+  overflow: hidden;
+}

@@ -19,9 +19,9 @@ export default function Desktop({PID, newApp}) {
           <img src="/img/icons8-folder-96.png" />
           <p> FE </p>
         </button>
-        <button onClick={() => newApp("IMV", "/home/myou/d/test.png")} className="DesktopButton">
-          <img src="/img/icons8-image-96.png" />
-          <p> Image View </p>
+        <button onClick={() => newApp("VIV", "/home/myou/a.mp4")} className="DesktopButton">
+          <img src="/img/icons8-video-96.png" />
+          <p> a.mp4 </p>
         </button>
         </div>
     </>
