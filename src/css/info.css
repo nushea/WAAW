@@ -6,7 +6,7 @@
   overflow-y: scroll;
   height: 100%;
   flex: 1;
-  white-space: pre-line;
+  white-space: pre-wrap;
 }
 .InfoData>a{
   justify-content: center;

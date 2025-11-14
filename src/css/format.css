@@ -106,3 +106,10 @@ a:visited {
 .decoratorHandle>p{
   user-select: none;
 }
+.ReadWindow {
+  overflow-y: scroll;
+  white-space: pre-wrap;
+}
+.ReadWindow > p {
+  white-space: pre-wrap;
+}

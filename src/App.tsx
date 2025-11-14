@@ -7,12 +7,13 @@ import Windows from "./core/windows.tsx"
 
 import FE from "./apps/FE.jsx"
 import INFO from "./apps/info.tsx"
+import READ from "./apps/read.tsx"
 import IMV from "./apps/imv.tsx"
 import { FunctionComponent, useRef, useEffect, useState } from "react";
 
 const IMAGE_EXTS = ['png', 'jpg', 'jpeg', 'gif', 'webp', 'avif', 'svg', 'bmp', 'ico'];
 const VIDEO_EXTS = ['mp4', 'webm', 'ogg', 'mov', 'avi', 'mkv', 'm4v'];
-const TEXT_EXTS  = ['txt', 'md', 'csv', 'json', 'xml', 'html', 'css', 'js', 'ts'];
+const TEXT_EXTS  = ['txt', 'md', 'csv', 'json', 'xml', 'html', 'css', 'js', 'ts', 'cpp', 'c', 'bat', 'ini'];
 
 function getExtension(name) {
   const cleanName = name.split('?')[0].split('#')[0];
@@ -59,6 +60,7 @@ function App() {
       switch(appType){
         case "FE": appType = FE; break;
         case "INFO": appType = INFO; break;
+        case "READ": appType = READ; break;
         case "IMV": appType = IMV; break;
       }
     }

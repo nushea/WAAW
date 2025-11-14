@@ -31,7 +31,7 @@ Roadmap:
     Informational App → implemented  
     Image Viewer → Implemented  
     Video Viewer → To be implemented  
-    Text Viewer → To be implemented  
+    Text Viewer → Implemented  
     Hex Viewer → To be implemented  
     Shell Emulator → TBD if it will be implemented  
     Browser Emulator → TBD if it will be implemented  
