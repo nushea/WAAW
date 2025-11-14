@@ -1,6 +1,7 @@
 .HexWindow{
   display:flex;
   justify-content: space-between;
+  overflow: scroll;
 }
 .HexWindow > div {
   border: solid;

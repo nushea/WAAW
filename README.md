@@ -12,7 +12,7 @@ In the case that it is given the path to a directory, the file structure is outp
 * -##-##-##- 4.000K file2
 
 Where the first part is \[directory]\[read]\[write]\[execute]\[read]\[write]\[execute]\[read]\[write]\[execute], in the order that `ls -l` would display the permissions and the second part is the size of the file so that the number has 4 digits and size type
-
+<pre>
 This Desktop Environment is extensible, allowing applications to be developed to it, communicating to them through the backronym-ically named 'Process Individual Data' (PID) that contains the following:
 
 {  
@@ -32,10 +32,10 @@ Roadmap:
     Image Viewer → Implemented  
     Video Viewer → Implemented  
     Text Viewer → Implemented  
-    Hex Viewer → To be implemented  
+    Hex Viewer → Implemented  
     Shell Emulator → TBD if it will be implemented  
     Browser Emulator → TBD if it will be implemented  
     Local Files → TBD if it will be implemented  
     Local States → TBD if it will be implemented  
     Scope Creep → TBD when it will end  
-
+</pre>
