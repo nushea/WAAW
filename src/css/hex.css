@@ -1,0 +1,26 @@
+.HexWindow{
+  display:flex;
+  justify-content: space-between;
+}
+.HexWindow > div {
+  border: solid;
+  border-width:2px;
+}
+.HexSide {
+  width: 50%;
+}
+.HexWrap {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0;
+  align-items: flex-start;
+}
+.Hexxie {
+  width: 50px;
+  height: 40px;
+  border: 1px solid;
+  text-align: center;
+  line-height: 40px;
+}
