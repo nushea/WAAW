@@ -143,7 +143,9 @@ function AppBase({ PID, modPID, remApp, setFocus, newApp }) {
         onMouseDown={() => setZIndex(setFocus())}
         ref={container}
         style={{
-          zIndex: zIndex.toString()
+          zIndex: zIndex.toString(),
+            left: PID.posX,
+            top: PID.posY,
         }}
       >
         <Decorator
@@ -155,7 +157,12 @@ function AppBase({ PID, modPID, remApp, setFocus, newApp }) {
           setInterState={setInterState}
           interState={interState}
         />
-        <AppType PID={PID} modPID={modPID} parent={container} newApp={newApp} />
+        <AppType 
+          PID={PID} 
+          modPID={modPID} 
+          parent={container} 
+          newApp={newApp} 
+          />
       </div>
     </>
   );

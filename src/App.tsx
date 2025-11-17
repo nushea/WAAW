@@ -52,9 +52,20 @@ function App() {
       title: string;
       icon: string;
       args: string;
+      posX: string;
+      posY: string;
     }[]
   >([]);
   const focusCounter = useRef(0);
+  const [offsets, setOffsets] = useState< 
+    {
+      x: number;
+      y: number;
+      off: number;
+    } 
+  >({x: 0, y: 0, off: 1});
+  const maxX = 5; 
+  const maxY = 6;
   function newApp(appType, args: string) {
     if(typeof appType == "string"){
       if(appType == '?'){
@@ -78,8 +89,21 @@ function App() {
         title: appType.name,
         icon: "/img/icons8-exit-96.png",
         args: args,
+        posX: 7 + (offsets.x * 6) + "cqw",
+        posY: 2 + (offsets.y * 6) + "cqh",
       },
     ]);
+    if(offsets.x >= maxX &&  offsets.y > maxY)
+      setOffsets({x: 0, y: 0, off: 1});
+    else if(offsets.x <= 0 || offsets.y > maxY){
+      if(offsets.off <= maxX)
+        setOffsets({x: offsets.off, y: 0, off: offsets.off + 1})
+      else
+        setOffsets({x: maxX, y: offsets.off - maxX, off: offsets.off + 1})
+    }
+    else
+      setOffsets({x: offsets.x - 1, y: offsets.y + 1, off: offsets.off})
+    console.log(offsets);
   }
   function remApp(index: number) {
     setPID(PID.slice(0, index).concat(PID.slice(index + 1)));
