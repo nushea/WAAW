@@ -4,8 +4,7 @@
   overflow: scroll;
 }
 .HexWindow > div {
-  border: solid;
-  border-width:2px;
+  margin: 2px;
 }
 .HexSide {
   width: 50%;
@@ -24,4 +23,5 @@
   border: 1px solid;
   text-align: center;
   line-height: 40px;
+  font-size: 40px;
 }

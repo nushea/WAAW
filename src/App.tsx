@@ -15,7 +15,7 @@ import { FunctionComponent, useRef, useEffect, useState } from "react";
 
 const IMAGE_EXTS = ['png', 'jpg', 'jpeg', 'gif', 'webp', 'avif', 'svg', 'bmp', 'ico'];
 const VIDEO_EXTS = ['mp4', 'webm', 'ogg', 'mov', 'avi', 'mkv', 'm4v'];
-const TEXT_EXTS  = ['txt', 'md', 'csv', 'json', 'xml', 'html', 'css', 'js', 'ts', 'cpp', 'c', 'bat', 'ini'];
+const TEXT_EXTS  = ['txt', 'md', 'csv', 'json', 'xml', 'html', 'css', 'js', 'ts', 'cpp', 'c', 'bat', 'ini', 'asm'];
 
 function getExtension(name) {
   const cleanName = name.split('?')[0].split('#')[0];

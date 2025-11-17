@@ -14,7 +14,7 @@ export default function HEX({PID, modPID, parent}) {
   useEffect(() => {
   }, [hexData]);
   useEffect(() => {
-    modPID({title: "Read - "+ PID.args, icon: "/img/icons8-text-100.png"})
+    modPID({title: "Hex - "+ PID.args, icon: "/img/icons8-hex-96.png"})
     fetch("http://localhost/api/wawAPI/"+PID.args)
           .then((response) => response.text())
           .then((text) => {
