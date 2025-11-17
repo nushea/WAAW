@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import "../css/format.css";
 import "../css/other.css";
+import "../css/root.css";
 import "../css/info.css";
 
 export default function READ({PID, modPID, parent}) {

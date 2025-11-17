@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import "../css/format.css";
 import "../css/other.css";
-import "../css/info.css";
+import "../css/root.css";
 
 const enum interStateValue {
   Normal = 1,

@@ -40,6 +40,12 @@
   z-index: 9007199254740991;
   direction: ltr;
 }
+.SideButtons {
+  width: 100%;
+}
+.sideButtons > img {
+  width: 100%;
+}
 .Desktop {
   flex: 1;
   display: flex;
