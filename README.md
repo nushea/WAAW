@@ -34,7 +34,7 @@ Roadmap:
     * Text Viewer → Implemented  
     * Hex Viewer → Implemented  
     * Shell Emulator → TBD if it will be implemented  
-    * Browser Emulator → TBD if it will be implemented  
+    * Browser Emulator → Implemented  
     * Local Files → TBD if it will be implemented  
     * Local States → TBD if it will be implemented  
     * Scope Creep → TBD when it will end  

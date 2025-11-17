@@ -1,0 +1,30 @@
+.FauxWindow {
+  flex: 1;
+  overflow:scroll;
+  display:flex;
+  flex-direction: column;
+}
+FauxMenu > iframe{
+  background: white;
+}
+.FauxMenu {
+  display:flex;
+  flex-direction: row;
+  height: 2.5cqw;
+}
+.FauxMenu > p {
+}
+.FauxMenu > form {
+  flex: 1;
+}
+.FauxInfo {
+  height: 100%;
+}
+
+.FauxInfo > img {
+  height: 100%;
+}
+
+.FauxFrame {
+  flex: 1;
+}
