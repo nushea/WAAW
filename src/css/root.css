@@ -65,3 +65,27 @@
 .DesktopButton > img {
   width: 100%;
 }
+.ContextMenu {
+  position: absolute;
+  background-color: #11111bC0;
+  text-align: center;
+  border: solid;
+	padding: 10px;
+	border-radius: 12px;
+	display: flex;
+	flex-direction: column;
+}
+.ContextMenu > h3 {
+  margin: 0;
+}
+.ContextMenu > hr {
+  margin: 5px;
+}
+.ContextItems {
+  display:flex;
+  flex-direction: column;
+}
+.ContextText:hover {
+  background-color: #2e1e3eC0;
+  border-radius: 6px;
+}

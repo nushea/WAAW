@@ -43,7 +43,47 @@ function isText(name) {
       return "READ";
     return "HEX";
   }
-
+function ContextMenu({ContextValues, SetContextValues, PID, newApp}){
+  function stopContext(){
+    SetContextValues({
+    isDisplayed: false,
+    name: "umm?",
+    pos: {
+      x: -1,
+      y: -1,
+    },
+    content: [],
+  });
+  }
+  function handleClicks(args){
+    console.log(args);
+    if(PID == null){
+      newApp(args.substring(0, args.indexOf(" ")), args.substring(args.indexOf(" ")+1));
+    }
+    stopContext();
+  }
+  return (
+    <div className="ContextMenu"
+     // onMouseLeave={() => stopContext()}
+      onContextMenu={(e) => {stopContext(); e.preventDefault()}}
+      style={{
+        left: (-10 + ContextValues.pos.x).toString(10) + "px",
+        top: (-10 + ContextValues.pos.y).toString(10) + "px",
+        display: (ContextValues.isDisplayed)? "flex" : "none",
+      }}
+    > 
+      <h3> Desktop </h3>
+      <hr/>
+      <div className="ContextItems">
+        {...ContextValues.content.map((item, i) => (
+          <button onClick={()=> {handleClicks(item.args);}}>
+            <p className="ContextText">{item.label}</p> 
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
 function App() {
   const [PID, setPID] = useState<
     {
@@ -103,7 +143,7 @@ function App() {
     }
     else
       setOffsets({x: offsets.x - 1, y: offsets.y + 1, off: offsets.off})
-    console.log(offsets);
+    //console.log(offsets);
   }
   function remApp(index: number) {
     setPID(PID.slice(0, index).concat(PID.slice(index + 1)));
@@ -117,14 +157,55 @@ function App() {
     )
   );
 };
+  const [ContextValues, SetContextValues] = useState<{
+    isDisplayed: boolean;
+    name: string;
+    pos: {
+      x: number;
+      y: number;
+    }
+    content: {
+      label: string;
+      args: string;
+    }[];
+  }>({
+    isDisplayed: false,
+    name: "umm?",
+    pos: {
+      x: -1,
+      y: -1,
+    },
+    content: [],
+  });
+  function HandleBackContext(e){
+    //console.log(e);
+    SetContextValues({
+      isDisplayed: true,
+      name: "WÃÃW",
+      pos: {
+        x: e.clientX,
+        y: e.clientY,
+      },
+      content: [
+        {
+          label: "Screens",
+          args: "FE /home/myou/s"
+        },
+        {
+          label: "Downs",
+          args: "FE /home/myou/d"
+        },
+      ],
+    });
+  }
   return (
     <>
-      <div className="Background">
+      <div className="Background" onContextMenu={(e) => {HandleBackContext(e); e.preventDefault(); }} >
         <SideBar PID={PID} newApp={newApp} setFocus={() => focusCounter.current++} />
         <Desktop PID={PID} newApp={newApp}/>
       </div>
       <Windows PID={PID} newApp={newApp} setFocus={() => focusCounter.current++} modPID={modPID} remApp={remApp} />
-
+      <ContextMenu ContextValues={ContextValues} SetContextValues={SetContextValues} newApp={newApp}/>
     </>
   );
 }
