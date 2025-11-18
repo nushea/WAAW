@@ -2,7 +2,8 @@ import { useState, useEffect, useRef } from "react";
 import "../css/format.css";
 import "../css/other.css";
 import "../css/root.css";
-import * as Cookies from "es-cookie";
+import * as Cookies from "es-cookie"
+import ContextMenu from "../core/context.tsx";
 import { useLocation, BrowserRouter, Routes, Route } from "react-router";
 async function filList(pathname) {
   var curPath = pathname;
@@ -22,10 +23,27 @@ async function filList(pathname) {
   }
 }
 
-function File({ item, setPath, itemSize, setPreview, newApp }) {
+function File({ item, setPath, itemSize, setPreview, newApp, contextValues, SetContextValues }) {
   const path = item.substring(item.indexOf("/"));
   const name = item.substring(item.lastIndexOf("/") + 1);
-  const [isHovered, setIsHovered] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);  
+  function HandleBackContext(e){
+      //console.log(e);
+      SetContextValues({
+        isDisplayed: true,
+        name: "FILE",
+        pos: {
+          x: e.pageX,
+          y: e.pageY,
+        },
+        content: [
+          {
+            label: "Open as New",
+            args: "FE "+path
+          },
+        ],
+      });
+    }
   function NewPreview(){
     return (
       <>
@@ -42,6 +60,10 @@ function File({ item, setPath, itemSize, setPreview, newApp }) {
         <>
           <button
             onClick={() => (item[0] == '#')? setPath(path) : newApp("?", path)}
+            onContextMenu={(event) => {
+              HandleBackContext(event);
+              event.preventDefault();
+            }}
             onMouseDown={(event) => {
               if(event.button === 1){
                 event.preventDefault();
@@ -262,6 +284,28 @@ export default function FE({PID, modPID, parent, newApp}) {
       card.style.width = itemSize + "cqw";
     });
   }, [itemSize]);
+
+  const [ContextValues, SetContextValues] = useState<{
+    isDisplayed: boolean;
+    name: string;
+    pos: {
+      x: number;
+      y: number;
+    };
+    content: {
+      label: string;
+      args: string;
+    }[];
+  }>({
+    isDisplayed: false,
+    name: "umm?",
+    pos: {
+      x: -1,
+      y: -1,
+    },
+    content: [],
+  });
+
   return (
     <>
       <div className="FE Items" ref={ItemsRef}>
@@ -282,7 +326,7 @@ export default function FE({PID, modPID, parent, newApp}) {
             <div className="Files">
               {...items.map((line, i) => (
                 <div key={i}>
-                  <File item={line} itemSize={itemSize}  setPath={setPath} setPreview={setPreview} newApp={newApp}/>
+                  <File item={line} itemSize={itemSize}  setPath={setPath} setPreview={setPreview} newApp={newApp} contextValues={ContextValues} SetContextValues={SetContextValues}/>
                 </div>
               ))}
             </div>
@@ -297,6 +341,7 @@ export default function FE({PID, modPID, parent, newApp}) {
 			</p>
         </div>
       </div>
+      <ContextMenu ContextValues={ContextValues} SetContextValues={SetContextValues} newApp={newApp}/>
     </>
   );
 }

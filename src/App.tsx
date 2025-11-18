@@ -4,8 +4,9 @@ import "./css/root.css";
 import SideBar from "./core/sidebar.tsx"
 import Desktop from "./core/desktop.tsx"
 import Windows from "./core/windows.tsx"
+import ContextMenu from "./core/context.tsx"
 
-import FE from "./apps/FE.jsx"
+import FE from "./apps/FE.tsx"
 import INFO from "./apps/info.tsx"
 import READ from "./apps/read.tsx"
 import IMV from "./apps/imv.tsx"
@@ -43,47 +44,7 @@ function isText(name) {
       return "READ";
     return "HEX";
   }
-function ContextMenu({ContextValues, SetContextValues, PID, newApp}){
-  function stopContext(){
-    SetContextValues({
-    isDisplayed: false,
-    name: "umm?",
-    pos: {
-      x: -1,
-      y: -1,
-    },
-    content: [],
-  });
-  }
-  function handleClicks(args){
-    console.log(args);
-    if(PID == null){
-      newApp(args.substring(0, args.indexOf(" ")), args.substring(args.indexOf(" ")+1));
-    }
-    stopContext();
-  }
-  return (
-    <div className="ContextMenu"
-     // onMouseLeave={() => stopContext()}
-      onContextMenu={(e) => {stopContext(); e.preventDefault()}}
-      style={{
-        left: (-10 + ContextValues.pos.x).toString(10) + "px",
-        top: (-10 + ContextValues.pos.y).toString(10) + "px",
-        display: (ContextValues.isDisplayed)? "flex" : "none",
-      }}
-    > 
-      <h3> Desktop </h3>
-      <hr/>
-      <div className="ContextItems">
-        {...ContextValues.content.map((item, i) => (
-          <button onClick={()=> {handleClicks(item.args);}}>
-            <p className="ContextText">{item.label}</p> 
-          </button>
-        ))}
-      </div>
-    </div>
-  );
-}
+
 function App() {
   const [PID, setPID] = useState<
     {
@@ -163,7 +124,7 @@ function App() {
     pos: {
       x: number;
       y: number;
-    }
+    };
     content: {
       label: string;
       args: string;
