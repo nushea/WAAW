@@ -1,0 +1,38 @@
+[
+  {
+    "label": "INFO",
+    "img": "/img/icons8-information-100.png",
+    "app": "INFO",
+    "arg": ""
+  },
+  {
+    "label": "Home",
+    "img": "/img/icons8-home-144.png",
+    "app": "FE",
+    "arg": "--home"
+  },
+  {
+    "label": "FE",
+    "img": "/img/icons8-folder-96.png",
+    "app": "FE",
+    "arg": "/"
+  },
+  {
+    "label": "Faux",
+    "img": "/img/icons8-browser-96.png",
+    "app": "FAUX",
+    "arg": "https://she-a.eu"
+  },
+  {
+    "label": "a.png",
+    "img": "/img/icons8-image-96.png",
+    "app": "IMV",
+    "arg": "/home/myou/s/a.png"
+  },
+  {
+    "label": "a.mp4",
+    "img": "/img/icons8-video-96.png",
+    "app": "VIV",
+    "arg": "/home/myou/a.mp4"
+  }
+]

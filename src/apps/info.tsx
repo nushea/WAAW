@@ -10,7 +10,7 @@ export default function INFO({PID, modPID, parent}) {
     <b>W</b>indow F<b>ĩ</b>le <b>W</b>atcher
     <a href="https://github.com/nushea/WAAW"> https://github.com/nushea/WAAW </a>
     </>)
-  const [ver, setVer] = useState("V 0.0.1");
+  const [ver, setVer] = useState("V 1.0");
   const [credits, setCredits] = useState(
         <div className="credits">
           <a href={"https://icons8.com/"}>Icons by https://icons8.com/</a>

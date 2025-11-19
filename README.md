@@ -26,7 +26,7 @@ Roadmap:
     * Application environment → Mostly implemented (missing proper application determinism)  
     * Sidebar → Implemented  
     * Desktop → Implemented  
-    * Context menus → To be implemented  
+    * Context menus → Implemented  (currently limited to opening new applications)
     * File Explorer → Implemented  
     * Informational App → implemented  
     * Image Viewer → Implemented  

@@ -4,34 +4,26 @@ import "../css/other.css";
 import "../css/root.css";
 
 export default function Desktop({PID, newApp}) {
+  const [apps, setApps] = useState([]);
+
+  useEffect(() => {
+    fetch("/src/core/json/desktop.json")
+      .then(res => res.json())
+      .then(data => {setApps(data);
+      });
+  }, []);
   return (
-    <>
-      <div className="Desktop">
-        <button onClick={() => newApp("INFO", "")} className="DesktopButton">
-          <img src="/img/icons8-information-100.png" />
-          <p> INFO </p>
+    <div className="Desktop">
+      {apps.map((entry, index) => (
+        <button
+          key={index}
+          onClick={() => newApp(entry.app, entry.arg)}
+          className="DesktopButton"
+        >
+          <img src={entry.img} alt={entry.label} />
+          <p>{entry.label}</p>
         </button>
-        <button onClick={() => newApp("FE", "--home")} className="DesktopButton">
-          <img src="/img/icons8-home-144.png" />
-          <p> Home </p>
-        </button>
-        <button onClick={() => newApp("FE", "/")} className="DesktopButton">
-          <img src="/img/icons8-folder-96.png" />
-          <p> FE </p>
-        </button>
-        <button onClick={() => newApp("FAUX", "https://she-a.eu")} className="DesktopButton">
-          <img src="/img/icons8-browser-96.png" />
-          <p> Faux </p>
-        </button>
-        <button onClick={() => newApp("IMV", "/home/myou/s/a.png")} className="DesktopButton">
-          <img src="/img/icons8-image-96.png" />
-          <p> a.png </p>
-        </button>
-        <button onClick={() => newApp("VIV", "/home/myou/a.mp4")} className="DesktopButton">
-          <img src="/img/icons8-video-96.png" />
-          <p> a.mp4 </p>
-        </button>
-        </div>
-    </>
+      ))}
+    </div>
   );
 }
