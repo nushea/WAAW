@@ -5,11 +5,10 @@ import "../css/root.css";
 import * as Cookies from "es-cookie"
 import ContextMenu from "../core/context.tsx";
 import { useLocation, BrowserRouter, Routes, Route } from "react-router";
-async function filList(pathname) {
+async function filList(apiUrl, pathname) {
   var curPath = pathname;
-
-  try {
-    const res = await fetch("http://localhost/api/wawAPI/" + curPath);
+    try {
+    const res = await fetch(apiUrl + curPath);
     const text = await res.text();
     if (
       (curPath.match(/\//g) || []).length == 2 &&
@@ -28,7 +27,6 @@ function File({ item, setPath, itemSize, setPreview, newApp, contextValues, SetC
   const name = item.substring(item.lastIndexOf("/") + 1);
   const [isHovered, setIsHovered] = useState(false);  
   function HandleBackContext(e){
-      //console.log(e);
       SetContextValues({
         isDisplayed: true,
         name: "FILE",
@@ -221,7 +219,7 @@ function initPath(args){
     return args;
 }
 
-export default function FE({PID, modPID, parent, newApp}) {
+export default function FE({apiUrl, PID, modPID, parent, newApp}) {
   const [items, setItems] = useState([]);
   const [path, setPath] = useState("");
   const [history, setHistory] = useState([initPath(PID.args)]);
@@ -250,7 +248,7 @@ export default function FE({PID, modPID, parent, newApp}) {
       setHistoryPoint(history.length);
     }
     setChangeHistory(1);
-    filList(path).then((data) => {
+    filList(apiUrl, path).then((data) => {
       setItems(data);
     });
   }, [path]);

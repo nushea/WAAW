@@ -5,11 +5,11 @@ import "../css/root.css";
 import "../css/viv.css";
 
 
-export default function VIV({PID, modPID, parent}) { 
+export default function VIV({apiUrl, PID, modPID, parent}) { 
   const [imageData, setImageData] = useState(null);
   useEffect(() => {
     modPID({title: "VIV - " + PID.args , icon: "/img/icons8-video-96.png"});
-    fetch("http://localhost/api/wawAPI/"+PID.args)
+    fetch(apiUrl+PID.args)
       .then((response) => response.blob())
       .then((blob) => {
         const url = URL.createObjectURL(blob);

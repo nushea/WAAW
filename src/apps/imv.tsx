@@ -21,7 +21,7 @@ function handleMove(event, isPressed, pos, setPos){
   }
 }
 
-export default function IMV({PID, modPID, parent}) { 
+export default function IMV({apiUrl, PID, modPID, parent}) { 
   const [imageData, setImageData] = useState(null);
   const [height, setHeight] = useState(100);
   const [pos, setPos] = useState<
@@ -38,7 +38,7 @@ export default function IMV({PID, modPID, parent}) {
   const [isPressed, setIsPressed] = useState(0);
   useEffect(() => {
     modPID({title: "IMV - " + PID.args , icon: "/img/icons8-image-96.png"});
-    fetch("http://localhost/api/wawAPI/"+PID.args)
+    fetch(apiUrl+PID.args)
       .then((response) => response.blob())
       .then((blob) => {
         const url = URL.createObjectURL(blob);

@@ -4,7 +4,7 @@ import "../css/other.css";
 import "../css/root.css";
 import "../css/hex.css";
 
-export default function HEX({PID, modPID, parent}) {
+export default function HEX({PID, modPID, parent, apiUrl}) {
   const [data, setData] = useState("");
   const [hexData, setHexData] = useState([0]);
   const ref = useRef<HTMLDivElement>(null);
@@ -16,7 +16,7 @@ export default function HEX({PID, modPID, parent}) {
   }, [hexData]);
   useEffect(() => {
     modPID({title: "Hex - "+ PID.args, icon: "/img/icons8-hex-96.png"})
-    fetch("http://localhost/api/wawAPI/"+PID.args)
+    fetch(apiUrl+PID.args)
           .then((response) => response.text())
           .then((text) => {
             setData(text);
